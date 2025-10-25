@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Gallery with Events (Enhanced)</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background: linear-gradient(to bottom right, #f0f4f7, #e3eaf0);
+      color: #333;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      color: #222;
+      text-shadow: 1px 1px 2px #ccc;
+    }
+
+    
+    #image {
+      width: 80%;
+      height: 300px;
+      line-height: 300px;
+      margin: 0 auto 30px;
+      border: 3px solid #444;
+      border-radius: 15px;
+      background-color: #ddd;
+      background-size: cover;
+      background-position: center;
+      color: #333;
+      font-size: 22px;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: background-image 0.8s ease-in-out, color 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    
+    #image.fade {
+      animation: fadeEffect 0.8s ease-in-out;
+    }
+
+    @keyframes fadeEffect {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    
+    .preview {
+      width: 160px;
+      height: 100px;
+      margin: 10px;
+      border: 2px solid #888;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease, border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .preview:hover {
+      transform: scale(1.15);
+      border-color: #222;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <h1>🌄 Image Gallery with JavaScript Events</h1>
+
+  <div id="image">
+    Di chuột qua một hình ảnh bên dưới để hiển thị ở đây.
+  </div>
+
+  <img class="preview" alt="Bãi biển tuyệt đẹp" 
+       src="https://picsum.photos/id/1015/300/200"
+       onmouseover="update(this)" onmouseout="undo()">
+
+  <img class="preview" alt="Núi tuyết hùng vĩ" 
+       src="https://picsum.photos/id/1003/300/200"
+       onmouseover="update(this)" onmouseout="undo()">
+
+  <img class="preview" alt="Rừng xanh yên bình" 
+       src="https://picsum.photos/id/102/300/200"
+       onmouseover="update(this)" onmouseout="undo()">
+
+  <img class="preview" alt="Hoàng hôn rực rỡ" 
+       src="https://picsum.photos/id/1006/300/200"
+       onmouseover="update(this)" onmouseout="undo()">
+
+  <script>
+    
+    function update(previewPic) {
+      console.log("Sự kiện onmouseover được kích hoạt!");
+      console.log("Alt:", previewPic.alt);
+      console.log("Source:", previewPic.src);
+
+      let div = document.getElementById("image");
+
+      
+      div.classList.remove("fade");
+      void div.offsetWidth; 
+      div.classList.add("fade");
+
+     
+      div.style.backgroundImage = `url('${previewPic.src}')`;
+      div.innerHTML = previewPic.alt;
+      div.style.color = "#fff";
+      div.style.textShadow = "2px 2px 5px rgba(0,0,0,0.6)";
+    }
+
+    
+    function undo() {
+      console.log("Sự kiện onmouseout được kích hoạt!");
+      let div = document.getElementById("image");
+
+      div.classList.remove("fade");
+      void div.offsetWidth;
+      div.classList.add("fade");
+
+      div.style.backgroundImage = "url('')";
+      div.innerHTML = "Di chuột qua một hình ảnh bên dưới để hiển thị ở đây.";
+      div.style.color = "#333";
+      div.style.textShadow = "none";
+    }
+  </script>
+</body>
+</html>
